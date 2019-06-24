@@ -2,8 +2,11 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link class="dropdown-item" to='/signup'>Sign Up</router-link>
+      <router-link to='/signup'>SignUp</router-link> |
+      <router-link to='/login'>Login</router-link> |
+      <router-link to='/logout'>Logout</router-link> |
+      <router-link to='/recipes'>Menu</router-link> |
+      <router-link to='/orders'>My Orders</router-link> |
     </div>
     <router-view/>
   </div>
