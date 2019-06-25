@@ -11,6 +11,7 @@
         <br>
         {{ drink.price }}
         </p> 
+        <button v-on:click="orderDrink()">Order</button>
       </div>
     </div>
   </div>
@@ -25,17 +26,26 @@ import axios from 'axios'
 export default {
   data: function() {
     return {
-      recipes: []
+      recipes: [],
+      order_id: "",
+      recipe_id: "",
+      status : ""
 
     };
   },
   created: function() {
-    axios.get("/api/recipes").then(response => {
+    axios.get("/api/recipes/").then(response => {
       this.recipes = response.data;
     });
   },
   methods: {
-
+    orderDrink: function() {
+      axios.post("/api/recipes").then(response => {
+        console.log("drink");
+        this.$router.push('/recipes');
+        console.log("success");
+      });
+    }
   }
 };
 </script>

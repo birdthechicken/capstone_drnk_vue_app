@@ -1,11 +1,13 @@
 <template>
   <div class='orders-index'>
     <h1>My Drinks</h1>
-    {{ drinks }}
+    <!-- {{ drinks }} -->
 
     <div v-for="drink in drinks">
         {{ drink }}
-      
+        <div>
+         <button v-on:click="destroyDrink(drink)">Remove</button>
+        </div>
     </div>
   </div>
 </template>
@@ -28,7 +30,13 @@ export default {
     });
   },
   methods: {
-
+    destroyDrink: function(drink) {
+     
+      axios.delete("/api/drinks/" + drink.id).then(response => {
+        var index = this.drinks.indexOf(drink);
+        this.drinks.splice(index, 1);
+      });
+    }
   }
 };
 </script>

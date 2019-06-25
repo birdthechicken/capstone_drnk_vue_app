@@ -1,10 +1,19 @@
 <template>
   <div class='orders-index'>
     <h1>My Orders</h1>
-      {{ orders }}
+       
     <div v-for="order in orders">
-        {{ order }}
-      
+        {{ "Order" }}  {{ order.id }}: {{ order.status }}
+      <div v-for="drinks in order">
+        <div v-for="drink in drinks">
+          {{ drink.name }} 
+        </div>
+      </div>
+
+    <div v-if="order.status === 'ordering'">
+      <button v-on:click="confirmOrder(order)">Confirm</button>
+    </div>
+
     </div>
   </div>
 </template>
@@ -18,7 +27,10 @@ import axios from 'axios'
 export default {
   data: function() {
     return {
-      orders: []
+      orders: {
+        drinks: [],
+        status: ""
+      },
     };
   },
   created: function() {
@@ -27,7 +39,18 @@ export default {
     });
   },
   methods: {
+    confirmOrder: function(inputOrder) {
 
+      var params = {
+                    status: "in_process"
+                    };
+      axios.patch("/api/orders/" + inputOrder.id, params).then(response => {
+        axios.get("/api/orders").then(response => {
+          this.orders = response.data;
+        });
+        console.log(inputOrder.status);
+      });
+    }
   }
 };
 </script>
