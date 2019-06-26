@@ -34,3 +34,19 @@
   color: #42b983;
 }
 </style>
+
+<script>
+  
+export default {
+  data: function () {
+    return {
+      bartender_status: false
+    };
+  },
+
+  created: function() {
+    this.bartender_status = localStorage.getItem("bartender_status");
+  },
+};
+
+</script>

@@ -4,10 +4,15 @@
     <!-- {{ drinks }} -->
 
     <div v-for="drink in drinks">
-        {{ drink }}
-        <div>
-         <button v-on:click="destroyDrink(drink)">Remove</button>
-        </div>
+        <div v-if="drink.status === 'ordering'">
+          {{ drink.name }}
+          {{ drink.price }}
+          {{ drink.rating }}
+          {{ drink.comment }}
+          <div>
+           <button v-on:click="destroyDrink(drink)">Remove</button>
+          </div>
+        </div> 
     </div>
   </div>
 </template>

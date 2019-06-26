@@ -9,8 +9,12 @@ import axios from "axios";
 export default {
   created: function() {
     delete axios.defaults.headers.common["Authorization"];
+    this.$parent.bartender_status = null;
+
+
     localStorage.removeItem("jwt");
-    this.$router.push("/");
+    localStorage.removeItem("bartender_status");
+    this.$router.push("/login");
   }
 };
 </script>
