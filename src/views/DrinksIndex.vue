@@ -1,19 +1,22 @@
 <template>
   <div class='orders-index'>
     <h1>My Drinks</h1>
-    <!-- {{ drinks }} -->
-
-    <div v-for="drink in drinks">
-        <div v-if="drink.status === 'ordering'">
-          {{ drink.name }}
-          {{ drink.price }}
-          {{ drink.rating }}
-          {{ drink.comment }}
-          <div>
-           <button v-on:click="destroyDrink(drink)">Remove</button>
-          </div>
-        </div> 
-    </div>
+      <div v-for="drink in drinks">
+        <div v-if="drink.status === 'completed'">
+        <p>  {{drink.name}} </p>
+        <p>  {{drink.price}} </p>
+        <p> Rating: {{drink.rating}} </p>
+        <p> Comments: {{drink.comment}} </p>
+        <form v-on:submit.prevent="rate(drink)">
+          <input type="text" placeholder="Add Rating" v-model="drink.rating">
+          <input type="submit" value="Rate Me">
+        </form>
+        <form v-on:submit.prevent="submit(drink)">
+          <input type="text" placeholder="Add Comment" v-model="drink.comment">
+          <input type="submit" value="Post Comment">
+        </form>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -35,13 +38,27 @@ export default {
     });
   },
   methods: {
-    destroyDrink: function(drink) {
-     
-      axios.delete("/api/drinks/" + drink.id).then(response => {
-        var index = this.drinks.indexOf(drink);
-        this.drinks.splice(index, 1);
+    submit: function(drink) {
+      var params = {
+                    comment: drink.comment
+                    };
+      axios.patch("/api/drinks/" + drink.id, params).then(response => {
+        console.log(response.data);
+      });
+    },
+    rate: function(drink) {
+      var params = {
+                    rating: drink.rating
+                    };
+      axios.patch("/api/drinks/" + drink.id, params).then(response => {
+        console.log(response.data);
       });
     }
   }
 };
 </script>
+
+
+
+
+      

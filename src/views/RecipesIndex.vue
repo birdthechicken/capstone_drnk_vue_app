@@ -11,12 +11,21 @@
      
       <div>
         <div v-for="recipe in recipeList">
-          <span v-on:click="recipe.display = !recipe.dispplay">{{ recipe.name }}</span>
+          <span v-on:click="recipe.display = !recipe.display">{{ recipe.name }}</span>
           <div v-if="recipe.display">Reviews</div>
-          ingredients: {{recipe.ingredients}}
-          price: {{ recipe.price }}
+          <br>
+           {{ recipe.ingredients }}
+          <br>
+           {{ recipe.price }}
+          <p>Rating</p>
+          <div v-if="recipe.rating !== null "></div>
+           {{ recipe.given_ratings }}
+          <p>Comments</p>
+          <div v-for="comment_message in recipe.comment_messages">
+           {{ comment_message }}
+          </div>
           <div>
-            <button v-on:click="orderDrink(recipe)">Order</button>
+           <button v-on:click="orderDrink(recipe)">Order</button>
           </div>
 
         </div>
