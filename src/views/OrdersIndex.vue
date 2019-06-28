@@ -40,8 +40,6 @@
           Cancel
        </button>
       </div>
-
-
   </div>
 </template>
 
