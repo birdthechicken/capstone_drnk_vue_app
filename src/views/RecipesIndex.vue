@@ -1,6 +1,18 @@
 <template>
   <div class="recipes-index">
 
+
+
+
+
+    
+
+
+
+
+
+
+
     <div class="row">
       <div class="col-md-2">
         <h1>Menu</h1>
@@ -44,7 +56,7 @@
       <div v-else>
         <h4>Pick a list and a drink to order</h4>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4" v-if="selectedRecipe === current_order.recipe">
           <h1>My Orders</h1>
         <div v-for="drink in current_order.drinks">
         {{ drink.name }}
