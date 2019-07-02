@@ -53,20 +53,35 @@
            <button v-on:click="orderDrink(selectedRecipe)">Order</button>
           </div>
       </div>
-      <div v-else>
+      <div class="col-md-4" v-else>
         <h4>Pick a list and a drink to order</h4>
       </div>
-      <div class="col-md-4" v-if="selectedRecipe === current_order.recipe">
-          <h1>My Orders</h1>
+
+      <div class="col-md-4">
+          <h1 v-if="current_order.drinks.length > 0">Current Order</h1>
+
         <div v-for="drink in current_order.drinks">
         {{ drink.name }}
         <button 
           v-if="current_order.status === 'ordering'" 
-          v-on:click="destroyDrink(drink, order)"
+          v-on:click="destroyDrink(drink, current_order)"
         >
           Remove
         </button>
         </div>
+        <button 
+          v-if="current_order.status === 'ordering'" 
+          v-on:click="confirmOrder(current_order)"
+        >
+          Confirm
+        </button>
+         <button 
+          v-if="current_order.status === 'ordering'"
+          v-on:click="cancelOrder(current_order)"
+        >
+          Cancel
+       </button>
+
 
       </div>
 
@@ -119,8 +134,25 @@ export default {
     destroyDrink: function(drink, order) {
      
       axios.delete("/api/drinks/" + drink.id).then(response => {
-        var index = current_order.drinks.indexOf(drink);
-        current_order.drinks.splice(index, 1);
+        var index = order.drinks.indexOf(drink);
+        order.drinks.splice(index, 1);
+      });
+    },
+    confirmOrder: function(order) {
+
+      var params = {
+                    status: "in_process"
+                    };
+      axios.patch("/api/orders/" + order.id, params).then(response => {
+        this.$router.push('/orders');
+      });
+
+      // document.querySelector("body").classList.toggle("pushy-open-right");
+    },
+    cancelOrder: function(order) {
+     
+      axios.delete("/api/orders/" + order.id).then(response => {
+        this.$router.push('/orders');
       });
     }
   }

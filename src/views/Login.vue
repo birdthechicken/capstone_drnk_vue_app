@@ -46,7 +46,7 @@ export default {
 
           localStorage.setItem("jwt", response.data.jwt);
           localStorage.setItem("bartender_status", response.data.bartender_status);
-          this.$router.push("/");
+          this.$router.push("/recipes");
         })
         .catch(error => {
           this.errors = ["Invalid email or password."];

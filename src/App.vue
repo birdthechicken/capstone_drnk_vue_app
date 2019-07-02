@@ -1,46 +1,38 @@
 <template>
   <div id="app">
 
+
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-transparent">
         <div class="container">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="index.html">
-                <img src="images/logo-light.png" alt="">
-            </a>
+            <a class="navbar-brand" href="/">DR!NK</a>
             <div  id="navbarNavDropdown" class="navbar-collapse collapse">
                 <ul class="navbar-nav ml-auto">
-                   <li class="nav-item dropdown"><a href="/" class="nav-link">Home</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Pages</a>
                         <ul class="dropdown-menu dropdown-menu-left">
                            <li><a href="about.html" class="dropdown-item"> About us</a></li>
-                           <router-link class="dropdown-item" to='/signup'>SignUp</router-link>
-                           <router-link class="dropdown-item" to='/login'>Login</router-link>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Portfolio</a>
-                        <ul class="dropdown-menu dropdown-menu-left">
-                            <li><a href="folio-title-hover.html" class="dropdown-item">Title hover</a></li>
-                            <li><a href="folio-title-bottom.html" class="dropdown-item">title bottom</a></li>
-                            <li><a href="folio-masonry.html" class="dropdown-item">Masonry</a></li>
-                            <li><a href="folio-mosaic.html" class="dropdown-item">Mosaic</a></li>
-                            <li><a href="folio-detail.html" class="dropdown-item">Detail</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item dropdown"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item dropdown"><a href="/recipes" class="nav-link">Menu</a></li>
+                    <li class="nav-item dropdown"><a href="/orders" class="nav-link">My Orders</a></li>
+                    <li class="nav-item dropdown"><a href="/drinks" class="nav-link">My Drinks</a></li>
                 </ul>        
             </div>
             <ul class=" navbar-nav ml-auto navbar-right">                     
                 <li class="nav-item"><a href="javascript:void(0)" class=" menu-btn nav-link"><i class="fa fa-dot-circle-o"></i> </a></li>
-                <li class="nav-item"><a href="javascript:void(0)" class=" btn btn-primary btn-rounded btn-sm">Sign up free</a></li>
+                <li class="nav-item"><a href="login" class=" btn btn-primary btn-rounded btn-sm">Login</a></li>
+                <li class="nav-item"><a href="/signup" class=" btn btn-primary btn-rounded btn-sm">Sign up free</a></li>
+                <li class="nav-item"><a href="logout" class=" btn btn-primary btn-rounded btn-sm">Logout</a></li>
             </ul>
         </div>
     </nav>
 
-    <div class="bg-parallax fullscreen" data-jarallax='{"speed": 0.2}' style='background-image: url("/images/bg1.jpg")'>
+    <div class="bg-parallax fullscreen" data-jarallax='{"speed": 0.1}' style='background-image: url("/images/bg1.jpg")'>
         <div class="d-flex align-items-center">
             <div class="container">
                 <div class=" row">
@@ -56,6 +48,8 @@
             </div>
         </div>
     </div><!--hero-->
+
+    
 
 
     <div id="nav">
