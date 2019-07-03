@@ -23,9 +23,15 @@
         </button>
         <button 
           v-if="$parent.bartender_status === 'true' && order.status === 'mixing'" 
+          v-on:click="readyOrder(order)"
+        >
+          Ready
+        </button>
+         <button 
+          v-if="order.status === 'ready'" 
           v-on:click="completeOrder(order)"
         >
-          Complete Order
+          Complete
         </button>
         <button 
           v-else-if="order.status === 'ordering'" 
@@ -87,6 +93,18 @@ export default {
         });
       });
     },
+    readyOrder: function(inputOrder) {
+
+      var params = {
+                    status: "ready"
+                    };
+      axios.patch("/api/orders/" + inputOrder.id, params).then(response => {
+        axios.get("/api/orders").then(response => {
+        alert("Your DR!NK is ready to pick-up!!")
+          this.orders = response.data;
+        });
+      });
+    },
     completeOrder: function(inputOrder) {
 
       var params = {
@@ -94,6 +112,7 @@ export default {
                     };
       axios.patch("/api/orders/" + inputOrder.id, params).then(response => {
         axios.get("/api/orders").then(response => {
+        alert("DR!NK has picked-up!!")
           this.orders = response.data;
         });
       });
