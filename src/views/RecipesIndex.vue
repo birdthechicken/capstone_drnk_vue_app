@@ -1,23 +1,18 @@
 <template>
   <div class="recipes-index">
     <div class="clearfix container">
-         <div id="js-filters-lightbox-gallery" class="cbp-l-filters-button cbp-l-filters-left">
-         <div v-on:click="recipeList = cocktails" class="cbp-filter-item">Cocktails</div>
-         <div v-on:click="recipeList = beers" class="cbp-filter-item">Beers</div>
-         <div v-on:click="recipeList = hardLiquors" class="cbp-filter-item">Bottles</div>
-     </div>
+      <div id="js-filters-lightbox-gallery" class="cbp-l-filters-button cbp-l-filters-left">
+        <div v-on:click="recipeList = cocktails" class="cbp-filter-item">Cocktails</div>
+        <div v-on:click="recipeList = beers" class="cbp-filter-item">Beers</div>
+        <div v-on:click="recipeList = hardLiquors" class="cbp-filter-item">Bottles</div>
+      </div>
    </div>
     <div class="container">  
       <div class="row">
         <div class="col-sm-4 recipe-card" v-for="recipe in recipeList" v-bind:key="recipe.id" v-bind:style="{ backgroundImage: 'url(' + recipe.image_url + ')' }">
-
           <span v-on:click="selectedRecipe = recipe" class="btn btn-sm btn-dark" data-toggle="modal" data-target="#exampleModalCenter">{{ recipe.name }} </span>
       <div v-if="selectedRecipe.name">
-          <!-- Button trigger modal -->
-          <!-- <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-            {{ recipe.name }} -->
-          </button>
-
+         
           <!-- Modal -->
           <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">

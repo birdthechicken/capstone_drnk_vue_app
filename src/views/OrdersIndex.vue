@@ -1,5 +1,8 @@
 <template>
   <div class='orders-index'>
+    <div v-if="($parent.bartender_status === 'true' && alert.display === 'bartender') || ($parent.bartender_status === 'false' && alert.display === 'customer')" class="alert alert-danger" role="alert">
+      {{ alert.message }}
+    </div>
     <h1>My Orders</h1>
        
       <div v-for="order in orders">
@@ -54,6 +57,7 @@
 
 <script>
 import axios from 'axios'
+import ActionCable from "actioncable";
 
 export default {
   data: function() {
@@ -61,13 +65,33 @@ export default {
       orders: [{
         drinks: [],
         status: ""
-      }]
+      }],
+      alert: {display: "false"}
     };
   },
   created: function() {
     axios.get("/api/orders").then(response => {
       this.orders = response.data;
     });
+    var cable = ActionCable.createConsumer("ws://localhost:3000/cable");
+        cable.subscriptions.create("AlertsChannel", {
+          connected: () => {
+            // Called when the subscription is ready for use on the server
+            console.log("Connected to AlertsChannel");
+          },
+          disconnected: () => {
+            // Called when the subscription has been terminated by the server
+          },
+          received: data => {
+            // Called when there's incoming data on the websocket for this channel
+            console.log("Data from AlertsChannel:", data);
+            axios.get("/api/orders").then(response => {
+              this.orders = response.data;
+            });
+            this.alert = data; // update the alerts in real time
+          }
+        });
+
   },
   methods: {
     confirmOrder: function(inputOrder) {
@@ -100,7 +124,7 @@ export default {
                     };
       axios.patch("/api/orders/" + inputOrder.id, params).then(response => {
         axios.get("/api/orders").then(response => {
-        alert("Your DR!NK is ready to pick-up!!")
+        // alert("Your DR!NK is ready to pick-up!!")
           this.orders = response.data;
         });
       });
@@ -112,7 +136,7 @@ export default {
                     };
       axios.patch("/api/orders/" + inputOrder.id, params).then(response => {
         axios.get("/api/orders").then(response => {
-        alert("DR!NK has picked-up!!")
+        // alert("DR!NK has picked-up!!")
           this.orders = response.data;
         });
       });

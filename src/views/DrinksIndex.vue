@@ -5,15 +5,17 @@
         <div v-if="drink.status === 'completed'">
         <p>  {{drink.name}} </p>
         <p>  {{drink.price}} </p>
-        <p> Rating: {{drink.rating}} </p>
-        <p> Comments: {{drink.comment}} </p>
-        <form v-on:submit.prevent="rate(drink)">
+       <!--  <p> Rating: {{drink.rating}} </p>
+        <p> Comments: {{drink.comment}} </p> -->
+        <!-- <form v-on:submit.prevent="rate(drink)">
           <input type="text" placeholder="Add Rating" v-model="drink.rating">
           <input type="submit" value="Rate Me">
-        </form>
+        </form> -->
         <form v-on:submit.prevent="submit(drink)">
+          <input type="text" placeholder="Add Rating" v-model="drink.rating">
+          <br>
           <input type="text" placeholder="Add Comment" v-model="drink.comment">
-          <input type="submit" value="Post Comment">
+          <input type="submit" value="Submit">
         </form>
         </div>
       </div>
@@ -40,10 +42,13 @@ export default {
   methods: {
     submit: function(drink) {
       var params = {
-                    comment: drink.comment
+                    comment: drink.comment,
+                    rating: drink.rating
                     };
       axios.patch("/api/drinks/" + drink.id, params).then(response => {
-        console.log(response.data);
+        axios.get("/api/drinks").then(response => {
+        this.drinks = response.data;
+        });
       });
     },
     rate: function(drink) {
@@ -51,7 +56,10 @@ export default {
                     rating: drink.rating
                     };
       axios.patch("/api/drinks/" + drink.id, params).then(response => {
-        console.log(response.data);
+        axios.get("/api/drinks").then(response => {
+          this.drinks = response.data
+          console.log(response.data);
+        });
       });
     }
   }
@@ -60,5 +68,3 @@ export default {
 
 
 
-
-      
