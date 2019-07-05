@@ -1,7 +1,39 @@
 <template>
   <div id="app">
 
+    <!-- Pushy Menu -->
+    <aside class="pushy pushy-right">
+        <h3>
+            <h1>Current Order</h1>
 
+            <p v-if="current_order.drinks.length === 0"><router-link to="/recipes">Order some drinks</router-link></p>
+
+             <div v-for="drink in current_order.drinks">
+             {{ drink.name }}
+             <button 
+               v-if="current_order.status === 'ordering'" 
+               v-on:click="destroyDrink(drink, current_order)"
+               class="btn btn-sm btn-primary m-1"
+             >
+               Remove
+             </button>
+             </div>
+             <button 
+               v-if="current_order.status === 'ordering'" 
+               v-on:click="confirmOrder(current_order)"
+               class="btn btn-sm btn-success"
+             >
+               Confirm
+             </button>
+              <button 
+               v-if="current_order.status === 'ordering'"
+               v-on:click="cancelOrder(current_order)"
+               class="btn btn-sm btn-danger m-1"
+             >
+               Cancel
+            </button>
+        </h3>
+    </aside>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-transparent">
         <div class="container">
@@ -12,10 +44,9 @@
             <div  id="navbarNavDropdown" class="navbar-collapse collapse">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Pages</a>
-                        <ul class="dropdown-menu dropdown-menu-left">
-                           <li><a href="about.html" class="dropdown-item"> About us</a></li>
-                        </ul>
+                      <ul class="dropdown-menu dropdown-menu-left">
+                         <li><a href="about.html" class="dropdown-item"> About us</a></li>
+                      </ul>
                     </li>
                     <li class="nav-item dropdown"><a href="/" class="nav-link">Home</a></li>
                     <li class="nav-item dropdown"><a href="/recipes" class="nav-link">Menu</a></li>
@@ -24,7 +55,7 @@
                 </ul>        
             </div>
             <ul class=" navbar-nav ml-auto navbar-right">                     
-                <li class="nav-item"><a href="javascript:void(0)" class=" menu-btn nav-link"><i class="fa fa-dot-circle-o"></i> </a></li>
+                <li class="nav-item"><a href="javascript:void(0)" class="menu-btn nav-link"><i class="fa fa-dollar" v-on:click="toggleMenu()"></i> </a></li>
                 <li class="nav-item"><a href="login" class=" btn btn-primary btn-rounded btn-sm">Login</a></li>
                 <li class="nav-item"><a href="/signup" class=" btn btn-primary btn-rounded btn-sm">Sign up free</a></li>
                 <li class="nav-item"><a href="logout" class=" btn btn-primary btn-rounded btn-sm">Logout</a></li>
@@ -32,24 +63,9 @@
         </div>
     </nav>
 
-    <div class="bg-parallax fullscreen" data-jarallax='{"speed": 0.1}' style='background-image: url("/images/bg1.jpg")'>
-        <div class="d-flex align-items-center">
-            <div class="container">
-                <div class=" row">
-                    <div class="col-md-10  mr-auto ml-auto text-center">
-                        <div class="hero-text-style1">
-                            <h1 class="mt0 mb10">DR!NK</h1>
-                            <p class="lead mb20">
-                                An easy way to order a dr!nk
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><!--hero-->
 
-    
+
+
 
 
     <!-- <div id="nav">
@@ -184,17 +200,52 @@
 </style>
 
 <script>
+var axios = require('axios');
 
 export default {
   data: function () {
     return {
-      bartender_status: false
+      bartender_status: false,
+      current_order: {
+                      drinks: []
+                      }
     };
   },
 
   created: function() {
     this.bartender_status = localStorage.getItem("bartender_status");
+
+    axios.get("/api/orders/current").then(response => {
+      this.current_order = response.data;
+    });
   },
+  methods: {
+    toggleMenu: function() {
+      document.querySelector("body").classList.toggle("pushy-open-right");
+    },
+    destroyDrink: function(drink, order) {
+     
+      axios.delete("/api/drinks/" + drink.id).then(response => {
+        var index = order.drinks.indexOf(drink);
+        order.drinks.splice(index, 1);
+      });
+    },
+    confirmOrder: function(order) {
+
+      var params = {
+                    status: "in_process"
+                    };
+      axios.patch("/api/orders/" + order.id, params).then(response => {
+        this.$router.push('/orders');
+      });
+    },
+    cancelOrder: function(order) {
+     
+      axios.delete("/api/orders/" + order.id).then(response => {
+        this.$router.push('/orders');
+      });
+    }
+  }
 };
 
 </script>

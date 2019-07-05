@@ -1,5 +1,7 @@
 <template>
   <div class="login">
+    <div class="top-spacer"></div>
+    
     <div class="container">
       <form v-on:submit.prevent="submit()">
         <h1>Login</h1>
@@ -46,7 +48,7 @@ export default {
 
           localStorage.setItem("jwt", response.data.jwt);
           localStorage.setItem("bartender_status", response.data.bartender_status);
-          this.$router.push("/recipes");
+          this.$router.push("/");
         })
         .catch(error => {
           this.errors = ["Invalid email or password."];

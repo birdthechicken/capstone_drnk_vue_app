@@ -1,6 +1,93 @@
 <template>
   <div class='orders-index'>
+    <div class="top-spacer"></div>
     <div v-if="($parent.bartender_status === 'true' && alert.display === 'bartender') || ($parent.bartender_status === 'false' && alert.display === 'customer')" class="alert alert-danger" role="alert">
+      {{ alert.message }}
+    </div>
+    <div class="container">
+      <h1>My Orders</h1>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title"><b>In-Process</b></h3>
+                <div v-for="order in orders">
+                  <div v-if="order.status !== 'completed'">
+                    <h5>Order  {{ order.id }}: {{ order.status }}</h5>
+                    <div v-for="drink in order.drinks">
+                    <h5>{{ drink.name }}</h5> 
+                    <button 
+                      v-if="order.status === 'ordering'" 
+                      v-on:click="destroyDrink(drink, order)"
+                      class="btn btn-sm btn-primary"
+                    >
+                      Remove
+                    </button> 
+                    </div>
+                    <button 
+                     v-if="$parent.bartender_status === 'true' && order.status === 'in_process'" 
+                     v-on:click="acceptOrder(order)"
+                     class="btn btn-sm btn-primary m-1"
+                    >
+                     Accept Order
+                    </button>
+                    <button 
+                     v-if="$parent.bartender_status === 'true' && order.status === 'mixing'" 
+                     v-on:click="readyOrder(order)"
+                     class="btn btn-sm btn-primary m-1"
+
+                    >
+                     Ready
+                    </button>
+                    <button 
+                     v-if="order.status === 'ready'" 
+                     v-on:click="completeOrder(order)"
+                     class="btn btn-sm btn-info"
+                    >
+                     Complete
+                    </button>
+                    <button 
+                     v-else-if="order.status === 'ordering'" 
+                     v-on:click="confirmOrder(order)"
+                     class="btn btn-sm btn-success"
+                    >
+                     Confirm
+                    </button>
+                    <button 
+                     v-if="order.status === 'ordering'"
+                     v-on:click="cancelOrder(order)"
+                     class="btn btn-sm btn-danger m-1"
+                    >
+                     Cancel
+                    </button>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title"><b>Completed</b>
+              </h3>
+                <div v-for="order in orders">
+                  <div v-if="order.status === 'completed'">
+                  <h5>Order  {{ order.id }}: {{ order.status }}
+                  </h5>
+                    <div v-for="drink in order.drinks">
+                    <h5>{{ drink.name }}
+                    </h5>
+                   </div>
+                  </div>
+               </div>
+              <a href="/drinks" class="btn btn-primary">Review Me</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div v-if="($parent.bartender_status === 'true' && alert.display === 'bartender') || ($parent.bartender_status === 'false' && alert.display === 'customer')" class="alert alert-danger" role="alert">
       {{ alert.message }}
     </div>
     <h1>My Orders</h1>
@@ -47,12 +134,19 @@
           v-on:click="cancelOrder(order)"
         >
           Cancel
-       </button>
-      </div>
+       </button> -->
   </div>
 </template>
 
 <style>
+h1 {
+  text-align: center;
+}
+.card-body {
+  background: #222222;
+}
+
+
 </style>
 
 <script>

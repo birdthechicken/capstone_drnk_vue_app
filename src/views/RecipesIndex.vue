@@ -1,5 +1,7 @@
 <template>
   <div class="recipes-index">
+    <div class="top-spacer"></div>
+
     <div class="clearfix container">
       <div id="js-filters-lightbox-gallery" class="cbp-l-filters-button cbp-l-filters-left">
         <div v-on:click="recipeList = cocktails" class="cbp-filter-item">Cocktails</div>
@@ -45,41 +47,41 @@
                     <div v-else>
                       N/A
                     </div>
-                  <p><b>Current Order</b></p>
-                  <h1 v-if="current_order.drinks.length > 0"
+                  <!-- <p><b>Current Order</b></p>
+                  <h1 v-if="$parent.current_order.drinks.length > 0"
                     >
                   </h1>
-                    <div v-for="drink in current_order.drinks">
+                    <div v-for="drink in $parent.current_order.drinks">
                     {{ drink.name }}
                     <button 
-                      v-if="current_order.status === 'ordering'" 
-                      v-on:click="destroyDrink(drink, current_order)"
+                      v-if="$parent.current_order.status === 'ordering'" 
+                      v-on:click="destroyDrink(drink, $parent.current_order)"
                       class="btn btn-sm btn-dark"
                     >
                       Remove
                     </button>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="modal-footer">
 
                   <button v-on:click="orderDrink(selectedRecipe)" class="btn btn-sm btn-primary">Add Order</button>
-                  <button 
-                    v-if="current_order.status === 'ordering'" 
-                    v-on:click="confirmOrder(current_order)"
+                  <!-- <button 
+                    v-if="$parent.current_order.status === 'ordering'" 
+                    v-on:click="confirmOrder($parent.current_order)"
                     class="btn btn-sm btn-success"
                     data-dismiss="modal"
                   >
                     Confirm Order
                   </button>
                    <button 
-                    v-if="current_order.status === 'ordering'"
-                    v-on:click="cancelOrder(current_order)"
+                    v-if="$parent.current_order.status === 'ordering'"
+                    v-on:click="cancelOrder($parent.current_order)"
                     class="btn btn-sm btn-danger"
                     data-dismiss="modal"
                   >
                     Cancel Order
-                 </button>
+                 </button> -->
                 </div>
               </div>
             </div>
@@ -90,8 +92,8 @@
     </div>
 
 
-    <div class="row">
-     <!--  <div class="col-md-2">
+    <!-- <div class="row">
+      <div class="col-md-2">
         <div v-for="recipe in recipeList" v-bind:key="recipe.id">
           <span v-on:click="selectedRecipe = recipe">{{ recipe.name }}</span>
         </div>
@@ -127,33 +129,33 @@
         <h4>Pick a list and a drink to order</h4>
       </div> -->
 
-      <div class="col-md-4">
-          <h1 v-if="current_order.drinks.length > 0">Current Order</h1>
+      <!-- <div class="col-md-4">
+          <h1 v-if="$parent.current_order.drinks.length > 0">Current Order</h1>
 
-        <div v-for="drink in current_order.drinks">
+        <div v-for="drink in $parent.current_order.drinks">
         {{ drink.name }}
         <button 
-          v-if="current_order.status === 'ordering'" 
-          v-on:click="destroyDrink(drink, current_order)"
+          v-if="$parent.current_order.status === 'ordering'" 
+          v-on:click="destroyDrink(drink, $parent.current_order)"
         >
           Remove
         </button>
         </div>
         <button 
-          v-if="current_order.status === 'ordering'" 
-          v-on:click="confirmOrder(current_order)"
+          v-if="$parent.current_order.status === 'ordering'" 
+          v-on:click="confirmOrder($parent.current_order)"
         >
           Confirm
         </button>
          <button 
-          v-if="current_order.status === 'ordering'"
-          v-on:click="cancelOrder(current_order)"
+          v-if="$parent.current_order.status === 'ordering'"
+          v-on:click="cancelOrder($parent.current_order)"
         >
           Cancel
-       </button>
+       </button> -->
 
 
-      </div>
+      <!-- </div> -->
 
     </div>
 
@@ -168,6 +170,9 @@
   background-size: 100% 100%;
 }
 
+.top-spacer {
+  margin: 80px;
+}
 </style>
 
 <script>
@@ -182,20 +187,17 @@ export default {
       recipeList: [],
       selectedRecipe: {
                         comment_messages: []
-                      },
-      current_order: {
-                      drinks: []
                       }
     };
   },
   created: function() {
-    axios.get("/api/orders/current").then(response => {
-      this.current_order = response.data;
-    });
+
     axios.get("/api/recipes").then(response => {
       this.cocktails = response.data.cocktails;
       this.beers = response.data.beers;
       this.hardLiquors = response.data.hard_liquors;
+
+      this.recipeList = this.cocktails;
     });
   },
   methods: {
@@ -207,7 +209,8 @@ export default {
       axios.post("/api/drinks", params).then(response => {
         response;
         axios.get("/api/orders/current").then(response => {
-          this.current_order = response.data;
+          document.querySelector("body").classList.toggle("pushy-open-right");
+          this.$parent.current_order = response.data;
         });
       });
     },
