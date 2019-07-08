@@ -227,6 +227,7 @@ export default {
                     status: "in_process"
                     };
       axios.patch("/api/orders/" + order.id, params).then(response => {
+        document.querySelector("body").classList.toggle("pushy-open-right");
         this.$router.push('/orders');
       });
 

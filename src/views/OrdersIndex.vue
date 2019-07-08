@@ -80,9 +80,11 @@
                    </div>
                   </div>
                </div>
+          <div v-if="$parent.bartender_status !== 'true'">
               <a href="/drinks" class="btn btn-primary">Review Me</a>
             </div>
           </div>
+         </div>
         </div>
       </div>
     </div>

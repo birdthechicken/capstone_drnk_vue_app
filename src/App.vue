@@ -3,8 +3,8 @@
 
     <!-- Pushy Menu -->
     <aside class="pushy pushy-right">
-        <h3>
-            <h1>Current Order</h1>
+        <h4>
+            <h2>Current Order</h2>
 
             <p v-if="current_order.drinks.length === 0"><router-link to="/recipes">Order some drinks</router-link></p>
 
@@ -19,7 +19,7 @@
              </button>
              </div>
              <button 
-               v-if="current_order.status === 'ordering'" 
+               v-if="current_order.status === 'ordering'"
                v-on:click="confirmOrder(current_order)"
                class="btn btn-sm btn-success"
              >
@@ -32,7 +32,7 @@
              >
                Cancel
             </button>
-        </h3>
+        </h4>
     </aside>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-transparent">
@@ -197,6 +197,7 @@
 #app {
   height: 100%;
 }
+
 </style>
 
 <script>
@@ -236,13 +237,22 @@ export default {
                     status: "in_process"
                     };
       axios.patch("/api/orders/" + order.id, params).then(response => {
+        // var siteOverlay = document.querySelector(".site-overlay")
+        // siteOverlay.style.display = siteOverlay.style.display === 'none' ? '' : 'none';
+        document.querySelector("body").classList.toggle("pushy-open-right");
         this.$router.push('/orders');
       });
     },
     cancelOrder: function(order) {
      
       axios.delete("/api/orders/" + order.id).then(response => {
-        this.$router.push('/orders');
+        // var siteOverlay = document.querySelector(".site-overlay")
+        // siteOverlay.style.display = siteOverlay.style.display === 'none' ? '' : 'none';
+        document.querySelector("body").classList.toggle("pushy-open-right");
+        this.current_order = {
+                        drinks: []
+                        };
+        this.$router.push('/recipes');
       });
     }
   }
