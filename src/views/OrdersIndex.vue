@@ -1,8 +1,10 @@
 <template>
   <div class='orders-index'>
     <div class="top-spacer"></div>
-    <div v-if="($parent.bartender_status === 'true' && alert.display === 'bartender') || ($parent.bartender_status === 'false' && alert.display === 'customer')" class="alert alert-danger" role="alert">
-      {{ alert.message }}
+    <div v-if="($parent.bartender_status === 'true' && alert.display === 'bartender') || ($parent.bartender_status !== 'true' && alert.display === 'customer')"> 
+     <div class="alert alert-success" role="alert">
+      <h3 class="alert-heading">{{ alert.message }}</h3>
+     </div>
     </div>
     <div class="container">
       <h1>My Orders</h1>
@@ -147,6 +149,11 @@ h1 {
 .card-body {
   background: #222222;
 }
+.alert-heading {
+  text-align: center;
+}
+
+
 
 
 </style>

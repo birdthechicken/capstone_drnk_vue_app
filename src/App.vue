@@ -84,9 +84,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 mb40">
-                    <h3>About Us</h3>
+                    <h3>THANKS FOR YOUR INTEREST!</h3>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        We are always looking for new places to launch our app! If you think DR!NK can benefit your bar, or just want to learn more about it, feel free to email either of us. We will be sure to get back to you as soon as possible so you can start enjoying the DR!NK life. Cheers!
                     </p>
                     <a href="#" class="btn btn-sm btn-white-outline">Learn More</a>
                 </div>
@@ -95,21 +95,21 @@
                     <ul class="list-unstyled footer-list-item">
                         <li>
                             <a href="#">
-                                Lorem ipsum dolor sit amet
+                                Easy to use
                             </a><br>
-                            <em>April 5, 2017</em>
+                            <em>April 5, 2019</em>
                         </li>
                         <li>
                             <a href="#">
-                                Consectetur adipiscing elit
+                                Life is so much easier
                             </a><br>
-                            <em>April 5, 2017</em>
+                            <em>Jan 4, 2019</em>
                         </li>
                         <li>
                             <a href="#">
-                                Sed do eiusmod tempor incididunt
+                                Where were you before?
                             </a><br>
-                            <em>April 5, 2017</em>
+                            <em>Feb 13, 2019</em>
                         </li>
                     </ul>
                 </div>
@@ -128,18 +128,7 @@
                             <img src="images/img3.jpg" alt="" class="img-fluid" width="90">
                             <span class="ti-plus"></span>
                         </a><!--/.hover-->
-                        <a href="#" class="thumb-hover-icon">
-                            <img src="images/img4.jpg" alt="" class="img-fluid" width="90">
-                            <span class="ti-plus"></span>
-                        </a><!--/.hover-->
-                        <a href="#" class="thumb-hover-icon">
-                            <img src="images/img5.jpg" alt="" class="img-fluid" width="90">
-                            <span class="ti-plus"></span>
-                        </a><!--/.hover-->
-                        <a href="#" class="thumb-hover-icon">
-                            <img src="images/img6.jpg" alt="" class="img-fluid" width="90">
-                            <span class="ti-plus"></span>
-                        </a><!--/.hover-->
+                        
                     </div><!--/.clearfix-->
                 </div>
                 <div class="col-lg-3 col-md-6 mb40">
@@ -147,11 +136,11 @@
                     <ul class="list-unstyled contact-list-item">
                         <li>
                             <i class="ti-home"></i>
-                            124, Monalisa Street, Lorem Ipsum, 302012
+                            215 W Ohio, Chicago, IL 60610
                         </li>
                         <li>
                             <i class="ti-email"></i>
-                            support@assan.com
+                            info@dr!nk.com
                         </li>
                         <li>
                             <i class="ti-mobile"></i>
@@ -240,6 +229,7 @@ export default {
         // var siteOverlay = document.querySelector(".site-overlay")
         // siteOverlay.style.display = siteOverlay.style.display === 'none' ? '' : 'none';
         document.querySelector("body").classList.toggle("pushy-open-right");
+        $('#exampleModalCenter').modal('hide');
         this.$router.push('/orders');
       });
     },

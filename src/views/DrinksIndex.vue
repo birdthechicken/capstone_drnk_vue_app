@@ -24,8 +24,8 @@
           <div class="modal-body">
             <h2>Review {{ selectedDrink.name }}</h2>
             <form v-on:submit.prevent="submit(selectedDrink)">
-              <label for="rating">Rating</label>
-              <input type="text" placeholder="Rating" v-model="selectedDrink.rating">
+              <label for="rating">Rating(1-5)</label>
+              <input type="text" placeholder="Add Rating" v-model="selectedDrink.rating">
               <br>
               <label for="comment">Comment</label>
               <input type="text" placeholder="Add Comment" v-model="selectedDrink.comment">
