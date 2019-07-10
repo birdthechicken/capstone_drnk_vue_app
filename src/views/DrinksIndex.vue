@@ -1,4 +1,5 @@
 <template>
+  <div class="home bg-parallax fullscreen" data-jarallax='{"speed": 0.1}' style='background-image: url("/images/bg4.jpg")'>
   <div class='orders-index'>
     <div class="top-spacer"></div>
 
@@ -40,6 +41,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 

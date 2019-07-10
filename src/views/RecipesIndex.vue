@@ -1,6 +1,8 @@
 <template>
-  <div class="recipes-index">
+  <div class="home bg-parallax fullscreen" data-jarallax='{"speed": 0.1}' style='background-image: url("/images/bg11.jpg")'>
+    <div class="recipes-index">
     <div class="top-spacer"></div>
+
 
     <div class="clearfix container">
       <div id="js-filters-lightbox-gallery" class="cbp-l-filters-button cbp-l-filters-left">
@@ -92,12 +94,39 @@
     </div>
 
 
-    <!-- <div class="row">
+    <div class="row">
       <div class="col-md-2">
         <div v-for="recipe in recipeList" v-bind:key="recipe.id">
           <span v-on:click="selectedRecipe = recipe">{{ recipe.name }}</span>
         </div>
+      </div>
+    </div>
+<!-- 
+    <div class="d-flex align-items-center">
+      <div class="container">
+        <div class=" row">
+          <div class="col-md-10  mr-auto ml-auto text-center">
+            <div class="hero-text-style1">
+              <div v-if="$parent.bartender_status === true">
+                <h1 class="mt0 mb10">Hello Bartender</h1>
+                 <p class="lead mb20">
+                    Let's make some money!!
+                </p> 
+              </div>
+              <div v-else>
+                <h1 class="mt0 mb10">DR!NK</h1>
+                <p class="lead mb20">
+                    An easy way to order a dr!nk
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div> -->
+    </div>
+  </div><!--hero-->
+
+  
 <!--       <div class="col-md-4" v-if="selectedRecipe.name">
           <h1>{{ selectedRecipe.name }}</h1>
 
@@ -157,9 +186,8 @@
 
       <!-- </div> -->
 
-    </div>
+    <!-- </div> -->
 
-  </div>
 </template>
 
 <style>
