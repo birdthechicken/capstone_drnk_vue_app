@@ -150,6 +150,7 @@
                 </div>
             </div>
         </div>
+
         <div class="bottom-footer">
             <div class="container">
                 <div class="row">
@@ -230,6 +231,7 @@ export default {
         // siteOverlay.style.display = siteOverlay.style.display === 'none' ? '' : 'none';
         document.querySelector("body").classList.toggle("pushy-open-right");
         $('#exampleModalCenter').modal('hide');
+
         this.$router.push('/orders');
       });
     },

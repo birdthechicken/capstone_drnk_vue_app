@@ -1,6 +1,6 @@
 <template>
-  <div class="home bg-parallax fullscreen" data-jarallax='{"speed": 0.1}' style='background-image: url("/images/bg11.jpg")'>
-    <div class="recipes-index">
+  <div class="recipes-index">
+    <div class="home bg-parallax fullscreen" style='background-image: url("/images/bg11.jpg")'>
     <div class="top-spacer"></div>
 
 
@@ -97,7 +97,7 @@
     <div class="row">
       <div class="col-md-2">
         <div v-for="recipe in recipeList" v-bind:key="recipe.id">
-          <span v-on:click="selectedRecipe = recipe">{{ recipe.name }}</span>
+          <!-- <span v-on:click="selectedRecipe = recipe">{{ recipe.name }}</span> -->
         </div>
       </div>
     </div>
@@ -187,7 +187,7 @@
       <!-- </div> -->
 
     <!-- </div> -->
-
+    
 </template>
 
 <style>
@@ -240,6 +240,7 @@ export default {
         response;
         axios.get("/api/orders/current").then(response => {
           document.querySelector("body").classList.toggle("pushy-open-right");
+          $('#exampleModalCenter').modal('hide');
           this.$parent.current_order = response.data;
         });
       });

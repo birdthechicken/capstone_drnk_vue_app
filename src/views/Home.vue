@@ -1,7 +1,7 @@
 <template>
 
 
-    <div class="home bg-parallax fullscreen" data-jarallax='{"speed": 0.1}' style='background-image: url("/images/bg1.jpg")'>
+    <div class="home bg-parallax fullscreen" style='background-image: url("/images/bg1.jpg")'>
       <div class="d-flex align-items-center">
         <div class="container">
           <div class=" row">

@@ -1,5 +1,5 @@
 <template>
-  <div class="home bg-parallax fullscreen" data-jarallax='{"speed": 0.1}' style='background-image: url("/images/bg4.jpg")'>
+  <div class="home bg-parallax fullscreen" style='background-image: url("/images/bg4.jpg")'>
   <div class='orders-index'>
     <div class="top-spacer"></div>
 
@@ -78,6 +78,7 @@ export default {
       axios.patch("/api/drinks/" + drink.id, params).then(response => {
         axios.get("/api/drinks").then(response => {
         this.drinks = response.data;
+        $('#exampleModal').modal('hide');
         });
       });
     }

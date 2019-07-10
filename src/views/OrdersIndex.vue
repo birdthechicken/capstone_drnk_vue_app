@@ -1,6 +1,6 @@
 <template>
-  <div class="home bg-parallax fullscreen" data-jarallax='{"speed": 0.1}' style='background-image: url("/images/bg6.jpg")'>
   <div class='orders-index'>
+  <div class="home bg-parallax fullscreen" style='background-image: url("/images/bg6.jpg")'>
     <div class="top-spacer"></div>
     <div v-if="($parent.bartender_status === 'true' && alert.display === 'bartender') || ($parent.bartender_status !== 'true' && alert.display === 'customer')"> 
      <div class="alert alert-success" role="alert">
